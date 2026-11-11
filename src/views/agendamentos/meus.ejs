@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+<h1>Meus agendamentos</h1>
+
+<% if (ok) { %><p class="msg ok"><%= ok %></p><% } %>
+
+<% if (itens.length === 0) { %>
+  <p>Você ainda não tem agendamentos. <a href="/servicos">Ver serviços</a></p>
+<% } else { %>
+  <div class="tabela-wrap">
+    <table class="tabela">
+      <thead>
+        <tr><th>Data</th><th>Hora</th><th>Serviço</th><th>Profissional</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% itens.forEach(function(a) { %>
+          <tr>
+            <td><%= a.data %></td>
+            <td><%= a.hora %></td>
+            <td><%= a.servico %></td>
+            <td><%= a.profissional %></td>
+            <td><span class="badge <%= a.status %>"><%= a.rotulo %></span></td>
+            <td>
+              <% if (a.podeCancelar) { %>
+                <form action="/agendamentos/<%= a.id %>/cancelar" method="POST" class="inline"
+                      onsubmit="return confirm('Cancelar este agendamento?');">
+                  <button type="submit" class="btn-perigo">Cancelar</button>
+                </form>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

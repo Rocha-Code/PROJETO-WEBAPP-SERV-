@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+
+<h1><%= item.titulo %></h1>
+<p class="sub"><%= item.categoria %> · <%= item.duracao %> min · <strong><%= item.preco %></strong></p>
+
+<% if (item.descricao) { %><p><%= item.descricao %></p><% } %>
+
+<div class="card">
+  <h3>Profissional</h3>
+  <p><strong><%= item.profissional.nome %></strong><%= item.profissional.bairro ? ' · ' + item.profissional.bairro : '' %></p>
+  <% if (item.profissional.bio) { %><p><%= item.profissional.bio %></p><% } %>
+</div>
+
+<h2>Agendar</h2>
+
+<% if (erro) { %><p class="msg erro"><%= erro %></p><% } %>
+
+<% if (!usuario) { %>
+  <p>Para agendar, <a href="/login">entre</a> ou <a href="/cadastro">cadastre-se</a> como cliente.</p>
+<% } else if (usuario.tipo !== 'cliente') { %>
+  <p>Somente contas de cliente podem agendar serviços.</p>
+<% } else { %>
+  <form action="/agendamentos" method="POST" class="form">
+    <input type="hidden" name="servicoId" value="<%= item.id %>">
+    <label>Data *
+      <input type="date" name="data" min="<%= hoje %>" required>
+    </label>
+    <label>Horário de início *
+      <input type="time" name="horaInicio" required>
+    </label>
+    <label>Observação
+      <input type="text" name="observacao" maxlength="255" placeholder="Ex.: endereço ou detalhe do serviço">
+    </label>
+    <button type="submit" class="btn">Solicitar agendamento</button>
+  </form>
+<% } %>
+
+<p><a href="/servicos">← Voltar aos serviços</a></p>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+
+<h1>ServMais</h1>
+<p>Encontre profissionais da sua cidade e agende horários com facilidade.</p>
+
+<p>
+  <a class="btn" href="/servicos">Ver serviços</a>
+  <% if (!usuario) { %>
+    <a class="btn btn-sec" href="/cadastro">Criar conta</a>
+  <% } %>
+</p>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ServMais</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header class="topo">
+    <a class="logo" href="/">ServMais</a>
+    <nav>
+      <a href="/servicos">Serviços</a>
+      <% if (usuario) { %>
+        <% if (usuario.tipo==='profissional' ) { %>
+          <a href="/profissional/servicos">Meus serviços</a>
+          <a href="/profissional/agendamentos">Agenda</a>
+          <% } else { %>
+            <a href="/meus-agendamentos">Meus agendamentos</a>
+            <% } %>
+              <span>Olá, <%= usuario.nome %></span>
+              <form action="/logout" method="POST" class="inline">
+                <button type="submit" class="btn-link">Sair</button>
+              </form>
+              <% } else { %>
+                <a href="/login">Entrar</a>
+                <a href="/cadastro">Cadastrar</a>
+                <% } %>
+    </nav>
+  </header>
+  <main class="conteudo">

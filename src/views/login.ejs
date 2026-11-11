@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+<h1>Entrar</h1>
+
+<% if (erro) { %><p class="msg erro"><%= erro %></p><% } %>
+<% if (ok) { %><p class="msg ok"><%= ok %></p><% } %>
+
+<form action="/login" method="POST" class="form">
+  <label>E-mail
+    <input type="email" name="email" required>
+  </label>
+  <label>Senha
+    <input type="password" name="senha" required>
+  </label>
+  <button type="submit" class="btn">Entrar</button>
+</form>
+
+<p>Não tem conta? <a href="/cadastro">Cadastre-se</a></p>
+
+<%- include('partials/footer') %>

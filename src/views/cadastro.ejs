@@ -1,0 +1,44 @@
+<%- include('partials/header') %>
+
+<h1>Criar conta</h1>
+
+<% if (erro) { %><p class="msg erro"><%= erro %></p><% } %>
+
+<form action="/cadastro" method="POST" class="form">
+  <label>Nome *
+    <input type="text" name="nome" value="<%= dados.nome || '' %>" required>
+  </label>
+  <label>E-mail *
+    <input type="email" name="email" value="<%= dados.email || '' %>" required>
+  </label>
+  <label>Telefone / WhatsApp
+    <input type="text" name="telefone" value="<%= dados.telefone || '' %>">
+  </label>
+  <label>Senha * (mínimo 6 caracteres)
+    <input type="password" name="senha" required>
+  </label>
+  <label>Eu sou *
+    <select name="tipo" id="tipo" required>
+      <option value="cliente" <%= dados.tipo === 'cliente' ? 'selected' : '' %>>Cliente (quero contratar)</option>
+      <option value="profissional" <%= dados.tipo === 'profissional' ? 'selected' : '' %>>Profissional (quero oferecer serviços)</option>
+    </select>
+  </label>
+  <label id="campo-bairro">Bairro de atuação
+    <input type="text" name="bairro" value="<%= dados.bairro || '' %>">
+  </label>
+  <button type="submit" class="btn">Cadastrar</button>
+</form>
+
+<p>Já tem conta? <a href="/login">Entrar</a></p>
+
+<script>
+  const tipo = document.getElementById('tipo');
+  const campoBairro = document.getElementById('campo-bairro');
+  function atualizar() {
+    campoBairro.style.display = tipo.value === 'profissional' ? 'block' : 'none';
+  }
+  tipo.addEventListener('change', atualizar);
+  atualizar();
+</script>
+
+<%- include('partials/footer') %>

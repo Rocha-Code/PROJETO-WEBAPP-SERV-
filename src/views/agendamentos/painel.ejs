@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+
+<h1>Agenda de solicitações</h1>
+
+<% if (ok) { %><p class="msg ok"><%= ok %></p><% } %>
+
+<% if (itens.length === 0) { %>
+  <p>Você ainda não recebeu solicitações.</p>
+<% } else { %>
+  <div class="tabela-wrap">
+    <table class="tabela">
+      <thead>
+        <tr><th>Data</th><th>Hora</th><th>Serviço</th><th>Cliente</th><th>Obs.</th><th>Status</th><th>Ações</th></tr>
+      </thead>
+      <tbody>
+        <% itens.forEach(function(a) { %>
+          <tr>
+            <td><%= a.data %></td>
+            <td><%= a.hora %></td>
+            <td><%= a.servico %></td>
+            <td><%= a.cliente %><br><small><%= a.telefone || '' %></small></td>
+            <td><%= a.observacao || '' %></td>
+            <td><span class="badge <%= a.status %>"><%= a.rotulo %></span></td>
+            <td class="acoes">
+              <% if (a.status === 'pendente') { %>
+                <form action="/profissional/agendamentos/<%= a.id %>/confirmar" method="POST" class="inline">
+                  <button type="submit" class="btn-ok">Confirmar</button>
+                </form>
+                <form action="/profissional/agendamentos/<%= a.id %>/recusar" method="POST" class="inline">
+                  <button type="submit" class="btn-perigo">Recusar</button>
+                </form>
+              <% } else if (a.status === 'confirmado') { %>
+                <form action="/profissional/agendamentos/<%= a.id %>/concluir" method="POST" class="inline">
+                  <button type="submit" class="btn-ok">Concluir</button>
+                </form>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

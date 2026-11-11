@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<h1>Meus serviços</h1>
+
+<% if (erro) { %><p class="msg erro"><%= erro %></p><% } %>
+<% if (ok) { %><p class="msg ok"><%= ok %></p><% } %>
+
+<p><a class="btn" href="/profissional/servicos/novo">+ Novo serviço</a></p>
+
+<% if (servicos.length === 0) { %>
+  <p>Você ainda não cadastrou nenhum serviço.</p>
+<% } else { %>
+  <div class="tabela-wrap">
+    <table class="tabela">
+      <thead>
+        <tr><th>Título</th><th>Categoria</th><th>Duração</th><th>Preço</th><th>Ações</th></tr>
+      </thead>
+      <tbody>
+        <% servicos.forEach(function(s) { %>
+          <tr>
+            <td><%= s.titulo %></td>
+            <td><%= nomes[s.categoriaId] %></td>
+            <td><%= s.duracaoMinutos %> min</td>
+            <td>R$ <%= Number(s.preco).toFixed(2).replace('.', ',') %></td>
+            <td class="acoes">
+              <a href="/profissional/servicos/<%= s.id %>/editar">Editar</a>
+              <form action="/profissional/servicos/<%= s.id %>/excluir" method="POST" class="inline"
+                    onsubmit="return confirm('Excluir este serviço?');">
+                <button type="submit" class="btn-perigo">Excluir</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>
