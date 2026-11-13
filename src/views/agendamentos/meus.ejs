@@ -10,17 +10,17 @@
   <div class="tabela-wrap">
     <table class="tabela">
       <thead>
-        <tr><th>Data</th><th>Hora</th><th>Serviço</th><th>Profissional</th><th>Status</th><th></th></tr>
+        <tr><th>Data</th><th>Hora</th><th>Serviço</th><th>Profissional</th><th>Status</th><th>Ações</th></tr>
       </thead>
       <tbody>
         <% itens.forEach(function(a) { %>
           <tr>
-            <td><%= a.data %></td>
-            <td><%= a.hora %></td>
-            <td><%= a.servico %></td>
-            <td><%= a.profissional %></td>
-            <td><span class="badge <%= a.status %>"><%= a.rotulo %></span></td>
-            <td>
+            <td data-label="Data"><%= a.data %></td>
+            <td data-label="Hora"><%= a.hora %></td>
+            <td data-label="Serviço"><%= a.servico %></td>
+            <td data-label="Profissional"><%= a.profissional %></td>
+            <td data-label="Status"><span class="badge <%= a.status %>"><%= a.rotulo %></span></td>
+            <td data-label="Ações" class="acoes">
               <% if (a.podeCancelar) { %>
                 <form action="/agendamentos/<%= a.id %>/cancelar" method="POST" class="inline"
                       onsubmit="return confirm('Cancelar este agendamento?');">

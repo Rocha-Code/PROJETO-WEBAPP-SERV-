@@ -15,13 +15,13 @@
       <tbody>
         <% itens.forEach(function(a) { %>
           <tr>
-            <td><%= a.data %></td>
-            <td><%= a.hora %></td>
-            <td><%= a.servico %></td>
-            <td><%= a.cliente %><br><small><%= a.telefone || '' %></small></td>
-            <td><%= a.observacao || '' %></td>
-            <td><span class="badge <%= a.status %>"><%= a.rotulo %></span></td>
-            <td class="acoes">
+            <td data-label="Data"><%= a.data %></td>
+            <td data-label="Hora"><%= a.hora %></td>
+            <td data-label="Serviço"><%= a.servico %></td>
+            <td data-label="Cliente"><%= a.cliente %><br><small><%= a.telefone || '' %></small></td>
+            <td data-label="Obs."><%= a.observacao || '' %></td>
+            <td data-label="Status"><span class="badge <%= a.status %>"><%= a.rotulo %></span></td>
+            <td data-label="Ações" class="acoes">
               <% if (a.status === 'pendente') { %>
                 <form action="/profissional/agendamentos/<%= a.id %>/confirmar" method="POST" class="inline">
                   <button type="submit" class="btn-ok">Confirmar</button>

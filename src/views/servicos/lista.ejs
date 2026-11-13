@@ -18,11 +18,11 @@
       <tbody>
         <% servicos.forEach(function(s) { %>
           <tr>
-            <td><%= s.titulo %></td>
-            <td><%= nomes[s.categoriaId] %></td>
-            <td><%= s.duracaoMinutos %> min</td>
-            <td>R$ <%= Number(s.preco).toFixed(2).replace('.', ',') %></td>
-            <td class="acoes">
+            <td data-label="Título"><%= s.titulo %></td>
+            <td data-label="Categoria"><%= nomes[s.categoriaId] %></td>
+            <td data-label="Duração"><%= s.duracaoMinutos %> min</td>
+            <td data-label="Preço">R$ <%= Number(s.preco).toFixed(2).replace('.', ',') %></td>
+            <td data-label="Ações" class="acoes">
               <a href="/profissional/servicos/<%= s.id %>/editar">Editar</a>
               <form action="/profissional/servicos/<%= s.id %>/excluir" method="POST" class="inline"
                     onsubmit="return confirm('Excluir este serviço?');">

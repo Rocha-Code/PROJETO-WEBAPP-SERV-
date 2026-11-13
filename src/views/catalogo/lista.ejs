@@ -1,30 +1,44 @@
 <%- include('../partials/header') %>
 
-<h1>Serviços</h1>
+  <h1>Serviços</h1>
 
-<form action="/servicos" method="GET" class="filtro">
-  <label>Categoria
-    <select name="categoria" onchange="this.form.submit()">
-      <option value="">Todas</option>
-      <% categorias.forEach(function(c) { %>
-        <option value="<%= c.id %>" <%= categoriaId === c.id ? 'selected' : '' %>><%= c.nome %></option>
-      <% }) %>
-    </select>
-  </label>
-  <noscript><button type="submit" class="btn">Filtrar</button></noscript>
-</form>
+  <form action="/servicos" method="GET" class="filtro">
+    <label>Categoria
+      <select name="categoria" onchange="this.form.submit()">
+        <option value="">Todas</option>
+        <% categorias.forEach(function(c) { %>
+          <option value="<%= c.id %>" <%=categoriaId===c.id ? 'selected' : '' %>><%= c.nome %>
+          </option>
+          <% }) %>
+      </select>
+    </label>
+    <noscript><button type="submit" class="btn">Filtrar</button></noscript>
+  </form>
 
-<% if (itens.length === 0) { %>
-  <p>Nenhum serviço encontrado nesta categoria.</p>
-<% } else { %>
-  <% itens.forEach(function(s) { %>
-    <div class="card">
-      <h3><%= s.titulo %></h3>
-      <p class="sub"><%= s.categoria %> · <%= s.duracao %> min · <strong><%= s.preco %></strong></p>
-      <p>Profissional: <%= s.profissional.nome %><%= s.profissional.bairro ? ' (' + s.profissional.bairro + ')' : '' %></p>
-      <a class="btn" href="/servicos/<%= s.id %>">Ver e agendar</a>
-    </div>
-  <% }) %>
-<% } %>
+  <% if (itens.length===0) { %>
+    <p>Nenhum serviço encontrado nesta categoria.</p>
+    <% } else { %>
+      <% itens.forEach(function(s) { %>
+        <div class="card">
+          <h3>
+            <%= s.titulo %>
+          </h3>
+          <p class="sub">
+            <%= s.categoria %> · <%= s.duracao %> min · <strong>
+                  <%= s.preco %>
+                </strong>
+          </p>
+          <% if (s.descricao) { %>
+            <p>
+              <%= s.descricao.length> 120 ? s.descricao.slice(0, 120) + '…' : s.descricao %>
+            </p>
+            <% } %>
+              <p>Profissional: <%= s.profissional.nome %>
+                  <%= s.profissional.bairro ? ' (' + s.profissional.bairro + ')' : '' %>
+              </p>
+              <a class="btn" href="/servicos/<%= s.id %>">Ver e agendar</a>
+        </div>
+        <% }) %>
+          <% } %>
 
-<%- include('../partials/footer') %>
+            <%- include('../partials/footer') %>
